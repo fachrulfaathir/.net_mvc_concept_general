@@ -1,0 +1,6 @@
+Scaffold-DbContext "Data Source=FAT\SQLEXPRESS;Initial Catalog=myapp_database;Integrated Security=True;Encrypt=False;Trust Server Certificate=True" Microsoft.EntityFrameworkCore.SqlServer -DataAnnotations -ContextDir Data -OutputDir Models -Tables Dishes , Ingredients, DishIngredients -Context MyAppContext -Force
+
+
+
+semua tabel :
+Scaffold-DbContext "Data Source=FAT\SQLEXPRESS;Initial Catalog=myapp_database;Integrated Security=True;Encrypt=False;Trust Server Certificate=True" Microsoft.EntityFrameworkCore.SqlServer ` -DataAnnotations ` -ContextDir Data ` -OutputDir Models ` -Context MyAppContext ` -Force
