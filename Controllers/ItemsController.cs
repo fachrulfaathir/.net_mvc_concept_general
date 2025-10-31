@@ -14,15 +14,7 @@ namespace Testing_general.Controllers
 
         public IActionResult Index()
         {
-            var item = _appContext.Items
-                .Select(x => new Item
-                {
-                    Id = x.Id,
-                    Name = x.Name ?? "(Tidak ada nama)",
-                    Price = x.Price ?? 0,
-                    Description = x.Description ?? "-"
-                })
-                .ToList();
+            var item = _appContext.Items.Include(x => x.SerialNumber).ToList();
 
             return View(item);
         }
@@ -69,7 +61,7 @@ namespace Testing_general.Controllers
                 await _appContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View();
 
         }
 

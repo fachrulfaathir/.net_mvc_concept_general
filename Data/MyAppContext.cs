@@ -23,6 +23,8 @@ public partial class MyAppContext : DbContext
 
     public virtual DbSet<Ingredient> Ingredients { get; set; }
 
+    public virtual DbSet<SerialNumber> SerialNumbers { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -46,6 +48,8 @@ public partial class MyAppContext : DbContext
         {
             entity.Property(e => e.IngredientId).ValueGeneratedNever();
         });
+
+        base.OnModelCreating(modelBuilder);
 
     }
 
