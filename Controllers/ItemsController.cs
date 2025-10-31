@@ -72,5 +72,17 @@ namespace Testing_general.Controllers
             return RedirectToAction("Index");
 
         }
+
+     
+        public async Task<IActionResult> Delete(int id)
+        {
+            var item = await _appContext.Items.FindAsync(id);
+            if (item != null)
+            {
+                _appContext.Items.Remove(item);
+                await _appContext.SaveChangesAsync();
+            }
+            return RedirectToAction("index");
+        }
     }
 }

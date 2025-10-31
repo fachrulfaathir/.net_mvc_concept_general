@@ -6,7 +6,7 @@
 
         public string? Name { get; set; }
 
-        public double? Price { get; set; }       // ✅ ubah ke nullable
+        public double? Price { get; set; }       
 
         public string? Description { get; set; }
         public string? Slug { get; set; }
