@@ -12,9 +12,17 @@ namespace Testing_general.Controllers
         public ItemsController(MyAppContext appContext)
         { _appContext = appContext; }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var item = await _appContext.Items.ToListAsync();
+            var item = _appContext.Items
+                .Select(x => new Item
+                {
+                    Id = x.Id,
+                    Name = x.Name ?? "(Tidak ada nama)",
+                    Price = x.Price ?? 0,
+                    Description = x.Description ?? "-"
+                })
+                .ToList();
 
             return View(item);
         }
@@ -44,9 +52,25 @@ namespace Testing_general.Controllers
             return View();
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return Content("id " + id);
+            var item = await _appContext.Items.FirstOrDefaultAsync(x => x.Id == id);
+            return View(item);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([Bind("Id, Name, Price, Description, Slug")] Item item)
+        {
+
+            if (ModelState.IsValid)
+            {   
+                _appContext.Update(item);
+                await _appContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+
         }
     }
 }
